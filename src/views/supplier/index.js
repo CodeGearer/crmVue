@@ -1,3 +1,4 @@
+import supplier from "@/api/supplier";
 export default {
     name: "index.vue",
     methods: {
@@ -5,14 +6,21 @@ export default {
             console.log(row);
         },
         async findAll () {
-            // let response = supplier.findAll();
+            let response = await supplier.findAll(this.currentPage, this.pageSize);
+            console.log(response)
+            this.total = response.total;
+            this.tableData = response.list;
+            console.log(this.tableData);
+            // if(status == 200000) {
+            //
+            // }
         },
         async addOrEdit () {
             // console.log("11111")
             if(this.formData.id) {//如果有ID说明是修改
-                await supplier.updateEntity(this.formData);
+                await supplier.update(this.formData);
             } else {//没有表示新增
-                await supplier.addEntity(this.formData);
+                await supplier.add(this.formData);
             }
             this.findAll()
         },
@@ -34,23 +42,8 @@ export default {
             formInline: {
                 user: '',
                 region: ''
-            }, tableData: [{
-                date: '2016-05-02',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1518 弄'
-            }, {
-                date: '2016-05-04',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1517 弄'
-            }, {
-                date: '2016-05-01',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1519 弄'
-            }, {
-                date: '2016-05-03',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1516 弄'
-            }]
+            },
+            tableData: []
         }
     }
 }

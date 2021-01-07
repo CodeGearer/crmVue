@@ -46,40 +46,45 @@
             align="center"/>
 
         <el-table-column
-            prop="date"
+            prop="id"
             label="id"
             align="center"
         />
         <el-table-column
-            prop="name"
+            prop="supplierName"
             label="运营商名称"
             align="center"
         />
         <el-table-column
-            prop="address"
+            prop="supplierContact"
             label="联系人"
             align="center"
         />
         <el-table-column
-            prop="address"
+            prop="supplierPhone"
+            label="联系人电话"
+            align="center"
+        />
+        <el-table-column
+            prop="supplierEmail"
             label="联系人邮件"
             align="center"
         />
         <el-table-column
-            prop="address"
+            prop="supplierAddress"
             label="运营商地址"
             show-overflow-tooltip
             align="center"
         />
 
         <el-table-column
-            prop="address"
+            prop="supplierBrank"
             label="开户行"
             show-overflow-tooltip
             align="center"
         />
         <el-table-column
-            prop="address"
+            prop="supplierBrankCode"
             label="开户行账号"
             align="center"
         />
