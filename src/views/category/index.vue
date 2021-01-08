@@ -52,43 +52,21 @@
             align="center"
         />
         <el-table-column
-            prop="supplierName"
-            label="运营商名称"
+            prop="categoryName"
+            label="分类名称"
             align="center"
         />
         <el-table-column
-            prop="supplierContact"
-            label="联系人"
+            prop="categoryDesc"
+            label="分类描述"
             align="center"
         />
         <el-table-column
-            prop="supplierPhone"
-            label="联系人电话"
-            align="center"
-        />
-        <el-table-column
-            prop="supplierEmail"
-            label="联系人邮件"
-            align="center"
-        />
-        <el-table-column
-            prop="supplierAddress"
-            label="运营商地址"
-            show-overflow-tooltip
+            prop="parentId"
+            label="父级ID"
             align="center"
         />
 
-        <el-table-column
-            prop="supplierBrank"
-            label="开户行"
-            show-overflow-tooltip
-            align="center"
-        />
-        <el-table-column
-            prop="supplierBrankCode"
-            label="开户行账号"
-            align="center"
-        />
         <el-table-column
             prop="addTime"
             label="添加时间"
@@ -147,27 +125,15 @@
           :visible.sync="editDialog"
           width="40%">
 
-        <el-form ref="formData" label-width="80px">
-          <el-form-item label="运营商名称">
-            <el-input v-model="formData.supplierName"></el-input>
+        <el-form :model="formData" ref="form" label-width="80px">
+          <el-form-item label="分类名称">
+            <el-input v-model="formData.categoryName"></el-input>
           </el-form-item>
-          <el-form-item label="联系人">
-            <el-input v-model="formData.supplierContact"></el-input>
+          <el-form-item label="分类描述">
+            <el-input v-model="formData.categoryDesc"></el-input>
           </el-form-item>
-          <el-form-item label="联系电话">
-            <el-input v-model="formData.supplierPhone"></el-input>
-          </el-form-item>
-          <el-form-item label="公司邮箱">
-            <el-input v-model="formData.supplierEmail"></el-input>
-          </el-form-item>
-          <el-form-item label="公司地址">
-            <el-input v-model="formData.supplierAddress"></el-input>
-          </el-form-item>
-          <el-form-item label="开户行">
-            <el-input v-model="formData.supplierBrank"></el-input>
-          </el-form-item>
-          <el-form-item label="银行卡号">
-            <el-input v-model="formData.supplierBrankCode"></el-input>
+          <el-form-item label="父级ID">
+            <el-input v-model="formData.parentId"></el-input>
           </el-form-item>
 <!--          <el-form-item>-->
 <!--            <el-button type="primary" @click="onSubmit" size="mini">立即创建</el-button>-->

@@ -13,6 +13,7 @@ router-view：表示的是一个不确定显示的内容，这个显示的内容
 <template>
 
   <div class="app-box">
+
     <router-view/>
   </div>
 </template>

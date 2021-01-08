@@ -1,4 +1,4 @@
-import supplier from "@/api/supplier";
+import brand from "@/api/brand";
 export default {
     name: "index.vue",
     methods: {
@@ -6,7 +6,7 @@ export default {
             console.log(row);
         },
         async findAll () {
-            let response = await supplier.findAll(this.currentPage, this.pageSize);
+            let response = await brand.findAll(this.currentPage, this.pageSize);
             console.log(response)
             this.total = response.total;
             this.tableData = response.list;
@@ -18,9 +18,9 @@ export default {
         async addOrEdit () {
             // console.log("11111")
             if(this.formData.id) {//如果有ID说明是修改
-                await supplier.update(this.formData);
+                await brand.update(this.formData);
             } else {//没有表示新增
-                await supplier.add(this.formData);
+                await brand.add(this.formData);
             }
             this.findAll()
         },
@@ -33,8 +33,7 @@ export default {
 
         async findById (id) {
             console.log(id)
-            this.formData = await supplier.findById(id);
-            console.log(this.formData)
+            this.formData = await brand.findById(id);
             console.log(this.formData)
         },
 
@@ -48,12 +47,12 @@ export default {
             if(this.ids.length == 0) {
                 this.$message.error("哥，还没选呢！");
             } else {
-                await supplier.deleteById(this.ids);
+                await brand.deleteById(this.ids);
             }
             this.findAll();
         },
 
-        onSubmit () {}
+        onSubmit() {}
     },
 
     data() {
