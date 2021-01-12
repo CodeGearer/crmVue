@@ -1,16 +1,20 @@
 import category from "@/api/category";
 export default {
     name: "index.vue",
+    created() {
+        this.findAll();
+    },
     methods: {
         handleClick(row) {
             console.log(row);
         },
         async findAll () {
-            let response = await category.findAll(this.currentPage, this.pageSize);
+            let response = await category.findAll(this.currentPage, this.pageSize, this.formInline);
+            console.log(this.formInline)
             console.log(response)
             this.total = response.total;
             this.tableData = response.list;
-            console.log(this.tableData);
+            // console.log(this.tableData);
             // if(status == 200000) {
             //
             // }
@@ -55,7 +59,15 @@ export default {
             this.findAll();
         },
         //查询
-        onSubmit () {}
+        onSubmit () {
+            //拿到搜索框输入的值
+            // console.log(this.formInline),
+            this.findAll ();
+            // console.log()
+        },
+
+        //详情
+        detail() {}
     },
 
     data() {
@@ -65,10 +77,10 @@ export default {
             total: 0,
             editDialog: false,
             delDialog: false,
+            detailDialog: false,
             formData: {},
             formInline: {
-                user: '',
-                region: ''
+                name: '',
             },
             tableData: [],
             ids:[]

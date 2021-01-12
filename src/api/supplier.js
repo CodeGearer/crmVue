@@ -1,8 +1,8 @@
 import axios from '../utils/baseAxios';
 let supplier = {
     //findAll
-    findAll(currentPage, pageSize) {
-        return axios.get(`supplier?currentPage=${currentPage}&pageSize=${pageSize}`)
+    findAll(currentPage, pageSize, formInline) {
+        return axios.post(`supplier/searchPage?currentPage=${currentPage}&pageSize=${pageSize}`, formInline)
     },
 
     //findById
@@ -23,6 +23,10 @@ let supplier = {
     //deleteById
     deleteById(ids) {
         return axios.delete(`supplier/${ids}`);
+    },
+
+    getAddress(parentId) {
+        return axios.get(`common/${parentId}`);
     }
 }
 export default supplier;

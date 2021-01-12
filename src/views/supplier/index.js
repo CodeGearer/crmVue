@@ -1,12 +1,16 @@
 import supplier from "@/api/supplier";
 export default {
     name: "index.vue",
+    created() {
+        this.findAll();
+        this.getProvinces();
+    },
     methods: {
         handleClick(row) {
             console.log(row);
         },
         async findAll () {
-            let response = await supplier.findAll(this.currentPage, this.pageSize);
+            let response = await supplier.findAll(this.currentPage, this.pageSize, this.formInline);
             console.log(response)
             this.total = response.total;
             this.tableData = response.list;
@@ -53,7 +57,84 @@ export default {
             this.findAll();
         },
 
-        onSubmit () {}
+        onSubmit () {
+            this.findAll();
+        },
+
+        //详情
+        detail() {},
+
+        //获取省
+        async getProvinces() {
+            let response = await supplier.getAddress(0);
+            // console.log(response.result)
+            this.provinceList = response.result;
+            console.log(this.provinceList);
+            console.log(this.provinceIndex);
+        },
+
+        //获取市
+        async getCity () {
+
+            if(this.provinceIndex == -1) {
+                this.provinceName = "";
+
+                this.cityName = "";
+                this.cityList = [];
+                this.cityIndex = -1;
+
+                this.areaName = "";
+                this.areaList = [];
+                this.areaIndex = -1;
+            }else {
+
+                //************
+                this.provinceName = this.$refs.province.selectedLabel
+                console.log(this.provinceName)
+                let response = await supplier.getAddress(this.provinceIndex);
+                this.cityList = response.result;
+            }
+        },
+
+        //获取区
+        async getArea(e) {
+
+            console.log(e)
+            if(this.cityIndex == -1) {
+                this.cityName = "";
+
+                this.areaName = "";
+                this.areaList = [];
+                this.areaIndex = -1;
+
+                this.roadName = "";
+                this.roadList = [];
+                this.roadIndex = -1;
+            } else {
+                let response = await supplier.getAddress(this.cityIndex);
+                // console.log(this.cityItem.id)
+                // console.log(this.cityItem.name)
+                console.log()
+                this.areaName = response.result.name
+                this.areaList = response.result;
+            }
+        },
+
+        //获取街道
+        async getRoad() {
+
+            if(this.areaIndex == -1) {
+                this.areaName = "";
+                this.roadName = "";
+                this.roadList = [];
+                this.roadIndex = -1;
+            } else {
+                let response = await supplier.getAddress(this.areaIndex);
+                this.roadList = response.result;
+            }
+
+        },
+
     },
 
     data() {
@@ -61,15 +142,37 @@ export default {
             currentPage: 1,
             pageSize: 5,
             total: 0,
+            // name:'',
+            // status: 0,
             editDialog: false,
             delDialog: false,
+            detailDialog: false,
             formData: {},
             formInline: {
                 user: '',
                 region: ''
             },
             tableData: [],
-            ids:[]
+            ids:[],
+            inputText:'',
+
+            provinceList:[],
+            provinceIndex:-1,
+            provinceName:"",
+
+            //定义市的参数
+            cityList:[],
+            cityIndex:-1,
+            cityName:"",
+            cityItem:{},
+
+            areaList:[],
+            areaIndex:-1,
+            areaName:'',
+
+            roadList:[],
+            roadIndex:-1,
+            roadName:''
         }
     }
 }

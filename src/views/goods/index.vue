@@ -6,18 +6,18 @@
         <el-button type="primary" @click="editDialog = true,formData={}">新建</el-button>
         <el-button type="danger" @click="delDialog = true">删除<i></i></el-button>
       </el-button-group>
-<!--      <el-button type="primary" plain>新建</el-button>-->
-<!--      <el-button type="danger" plain >删除</el-button>-->
+      <!--      <el-button type="primary" plain>新建</el-button>-->
+      <!--      <el-button type="danger" plain >删除</el-button>-->
+
     </div>
     <!--    搜索查询-->
     <div class="search-box">
       <el-form :inline="true" :model="formInline" class="demo-form-inline">
-        <el-form-item label="输入搜索内容">
-          <el-input v-model="formInline.name" placeholder="输入搜索内容"></el-input>
-          <el-button type="primary" @click="onSubmit">查询</el-button>
+        <el-form-item label="请输入要查询的内容">
+          <el-input v-model="formInline.name" placeholder="请输入要查询的内容"></el-input>
+          <el-button type="primary" @click="onSubmit" class="chaxun">查询</el-button>
         </el-form-item>
       </el-form>
-
     </div>
     <!--    数据表格
           stripe:表示隔行变色
@@ -44,41 +44,28 @@
             align="center"
         />
         <el-table-column
-            prop="supplierName"
-            label="运营商名称"
+            prop="brandName"
+            label="商品名称"
             align="center"
         />
         <el-table-column
-            prop="supplierContact"
-            label="联系人"
+            prop="brandSite"
+            label="商品分类"
             align="center"
         />
         <el-table-column
-            prop="supplierPhone"
-            label="联系人电话"
+            prop="brandDesc"
+            label="商品品牌"
             align="center"
         />
         <el-table-column
-            prop="supplierEmail"
-            label="联系人邮件"
+            prop="brandLogo"
+            label="商品型号"
             align="center"
         />
         <el-table-column
-            prop="supplierAddress"
-            label="运营商地址"
-            show-overflow-tooltip
-            align="center"
-        />
-
-        <el-table-column
-            prop="supplierBrank"
-            label="开户行"
-            show-overflow-tooltip
-            align="center"
-        />
-        <el-table-column
-            prop="supplierBrankCode"
-            label="开户行账号"
+            prop="brandLogo"
+            label="商品颜色"
             align="center"
         />
         <el-table-column
@@ -111,7 +98,6 @@
           <template slot-scope="obj">
             <el-button type="text" size="small" @click="delDialog=true,$refs.dataTable.clearSelection(),ids=[],ids.push(obj.row.id)">删除</el-button>
             <el-button @click="findById(obj.row.id), editDialog=true" type="text" size="small">编辑</el-button>
-            <el-button @click="detail(), detailDialog=true" type="text" size="small">详情</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -141,54 +127,28 @@
           width="40%">
 
         <el-form ref="formData" label-width="80px">
-          <el-form-item label="运营商名称">
-            <el-input v-model="formData.supplierName"></el-input>
-          </el-form-item>
-          <el-form-item label="联系人">
-            <el-input v-model="formData.supplierContact"></el-input>
-          </el-form-item>
-          <el-form-item label="联系电话">
-            <el-input v-model="formData.supplierPhone"></el-input>
-          </el-form-item>
-          <el-form-item label="公司邮箱">
-            <el-input v-model="formData.supplierEmail"></el-input>
-          </el-form-item>
-
-<!--          添加或修改公司地址-->
-          <div class=" form-group row">
-<!--            **************-->
-          <select ref="province"  name="" class="form-control" @change="getCity" v-model="provinceIndex">
-            <option value="-1">请选择省</option>
-            <option :value="item.id" :label="item.name" v-for="(item,index) in provinceList" :key="index">{{item.name}}</option>
-          </select>
-
-          <select id="city"  name="" class="form-control" @change="getArea" v-model="cityIndex">
-            <option value="-1">请选择市</option>
-            <option :value="item.id" :label="item.name" v-for="(item,index) in cityList" :key="index">{{item.name}}</option>
-          </select>
-
-          <select id="area"  name="" class="form-control" @change="getRoad" v-model="areaIndex">
-            <option value="-1">请选择区</option>
-            <option :value="item.id" :label="item.name" v-for="(item,index) in areaList" :key="index">{{item.name}}</option>
-          </select>
-
-          <select id="road"  name="" class="form-control" @change="getRoad" v-model="roadIndex">
-            <option value="-1">请选择街道</option>
-            <option :value="item.id" :label="item.name" v-for="(item,index) in roadList" :key="index">{{item.name}}</option>
-          </select>
-            <el-input v-model="inputText" placeholder="请输入详细地址"></el-input>
-          </div>
-
-          <el-form-item label="开户行">
-            <el-input v-model="formData.supplierBrank"></el-input>
-          </el-form-item>
-          <el-form-item label="银行卡号">
-            <el-input v-model="formData.supplierBrankCode"></el-input>
-          </el-form-item>
-<!--          <el-form-item>-->
-<!--            <el-button type="primary" @click="onSubmit" size="mini">立即创建</el-button>-->
-<!--            <el-button size="mini">取消</el-button>-->
+<!--          <el-form-item label="存货档案编号">-->
+<!--            <el-input v-model="formData.id"></el-input>-->
 <!--          </el-form-item>-->
+          <el-form-item label="商品名">
+            <el-input v-model="formData.goodName"></el-input>
+          </el-form-item>
+          <el-form-item label="商品类型">
+            <el-input v-model="formData.goodCategory"></el-input>
+          </el-form-item>
+          <el-form-item label="市场价">
+            <el-input v-model="formData.marketPrice"></el-input>
+          </el-form-item>
+          <el-form-item label="商城价">
+            <el-input v-model="formData.mallPrice"></el-input>
+          </el-form-item>
+          <el-form-item label="最低库存量">
+            <el-input v-model="formData.minStorage"></el-input>
+          </el-form-item>
+          <!--          <el-form-item>-->
+          <!--            <el-button type="primary" @click="onSubmit" size="mini">立即创建</el-button>-->
+          <!--            <el-button size="mini">取消</el-button>-->
+          <!--          </el-form-item>-->
         </el-form>
 
         <span slot="footer" class="dialog-footer">
@@ -198,13 +158,13 @@
       </el-dialog>
     </div>
 
-<!--    删除的弹窗-->
+    <!--    删除的弹窗-->
     <el-dialog
         title="温馨提示"
         :visible.sync="delDialog"
         refs="dataTable"
         width="30%">
-      <span>确定要删除{{ids}}吗！！！！！</span>
+      <span>确定要删除{{ids}}吗？？！！</span>
       <span slot="footer" class="dialog-footer">
         <el-button @click="delDialog = false" size="mini">取 消</el-button>
         <el-button type="primary" @click="delDialog = false,deleteByIds()" size="mini">确 定</el-button>
@@ -213,7 +173,6 @@
 
   </div>
 </template>
-
 <script src="./index.js">
 
 </script>

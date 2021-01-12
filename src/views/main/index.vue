@@ -12,9 +12,10 @@
 
         <el-scrollbar>
           <el-menu
-              default-active="2"
+              :default-active="$route.name"
               class="el-menu-vertical-demo"
-              style="width: 200px">
+              style="width: 200px"
+              :router=true>
 
             <el-menu-item index="1">
               <i class="el-icon-menu"></i>
@@ -26,17 +27,21 @@
                 <i class="el-icon-location"></i>
                 <span>商品相关</span>
               </template>
-              <el-menu-item index="2-1">
+              <el-menu-item index="/brand">
                 <i class="el-icon-menu"></i>
                 <span slot="title" @click="toBrand">品牌管理</span>
               </el-menu-item>
-              <el-menu-item index="2-2">
+              <el-menu-item index="/supplier">
                 <i class="el-icon-menu"></i>
-                <span slot="title" @click="toSupplier">商品管理</span>
+                <span slot="title" @click="toSupplier">供应商管理</span>
               </el-menu-item>
-              <el-menu-item index="2-3">
+              <el-menu-item index="/category">
                 <i class="el-icon-menu"></i>
                 <span slot="title" @click="toCategoty">分类管理</span>
+              </el-menu-item>
+              <el-menu-item index="/goods">
+                <i class="el-icon-menu"></i>
+                <span slot="title">商品管理</span>
               </el-menu-item>
             </el-submenu>
 
@@ -59,6 +64,18 @@
               </el-menu-item>
             </el-submenu>
 
+            <el-submenu index="4">
+              <template slot="title">
+                <i class="el-icon-location"></i>
+                <span>员工相关</span>
+              </template>
+              <el-menu-item index="/admin">
+                <i class="el-icon-menu"></i>
+                <span slot="title">员工管理</span>
+              </el-menu-item>
+            </el-submenu>
+
+
             <el-menu-item index="3">
               <i class="el-icon-tickets"></i>
               <span slot="title">运营商管理</span>
@@ -74,7 +91,9 @@
         <el-main>
 
           <div class="main-body">
+            <el-scrollbar>
             <router-view/>
+            </el-scrollbar>
           </div>
 
         </el-main>

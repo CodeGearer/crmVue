@@ -10,22 +10,13 @@
 <!--      <el-button type="danger" plain >删除</el-button>-->
     </div>
     <!--    搜索查询-->
-    <div class="search-box">
+    <div class="search-box" >
       <el-form :inline="true" :model="formInline" class="demo-form-inline">
-        <el-form-item label="审批人">
-          <el-input v-model="formInline.user" placeholder="审批人"></el-input>
-        </el-form-item>
-        <el-form-item label="活动区域">
-          <el-select v-model="formInline.region" placeholder="活动区域">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item>
+        <el-form-item label="商品类型名称">
+          <el-input v-model="formInline.name" placeholder="商品类型名称"></el-input>
           <el-button type="primary" @click="onSubmit">查询</el-button>
         </el-form-item>
       </el-form>
-
     </div>
     <!--    数据表格
           stripe:表示隔行变色
@@ -97,6 +88,7 @@
           <template slot-scope="obj">
             <el-button type="text" size="small" @click="delDialog=true,$refs.dataTable.clearSelection(),ids=[],ids.push(obj.row.id)">删除</el-button>
             <el-button @click="findById(obj.row.id), editDialog=true" type="text" size="small">编辑</el-button>
+            <el-button @click="detail(), detailDialog=true" type="text" size="small">详情</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -154,7 +146,7 @@
         :visible.sync="delDialog"
         refs="dataTable"
         width="30%">
-      <span>确定要删除{{ids}}吗？？？？？？？？？？？？？？？？？？？？？？？？？！！！！！！！！！！！</span>
+      <span>确定要删除{{ids}}吗！！！！</span>
       <span slot="footer" class="dialog-footer">
         <el-button @click="delDialog = false" size="mini">取 消</el-button>
         <el-button type="primary" @click="delDialog = false,deleteByIds()" size="mini">确 定</el-button>

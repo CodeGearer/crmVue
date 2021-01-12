@@ -1,8 +1,8 @@
 import axios from '../utils/baseAxios';
 let category = {
     //findAll
-    findAll(currentPage, pageSize) {
-        return axios.get(`category?currentPage=${currentPage}&pageSize=${pageSize}`)
+    findAll(currentPage, pageSize, formInline) {
+        return axios.post(`category/searchPage?currentPage=${currentPage}&pageSize=${pageSize}`, formInline)
     },
 
     //findById

@@ -1,8 +1,8 @@
 import axios from '../utils/baseAxios';
 let brand = {
     //findAll
-    findAll(currentPage, pageSize) {
-        return axios.get(`brand?currentPage=${currentPage}&pageSize=${pageSize}`)
+    findAll(currentPage, pageSize, formInline) {
+        return axios.post(`brand/searchPage?currentPage=${currentPage}&pageSize=${pageSize}`, formInline);
     },
 
     //findById

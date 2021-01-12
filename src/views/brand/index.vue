@@ -8,24 +8,16 @@
       </el-button-group>
 <!--      <el-button type="primary" plain>新建</el-button>-->
 <!--      <el-button type="danger" plain >删除</el-button>-->
+
     </div>
     <!--    搜索查询-->
     <div class="search-box">
       <el-form :inline="true" :model="formInline" class="demo-form-inline">
-        <el-form-item label="审批人">
-          <el-input v-model="formInline.user" placeholder="审批人"></el-input>
-        </el-form-item>
-        <el-form-item label="活动区域">
-          <el-select v-model="formInline.region" placeholder="活动区域">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="onSubmit">查询</el-button>
+        <el-form-item label="请输入要查询的内容">
+          <el-input v-model="formInline.name" placeholder="请输入要查询的内容"></el-input>
+          <el-button type="primary" @click="onSubmit" class="chaxun">查询</el-button>
         </el-form-item>
       </el-form>
-
     </div>
     <!--    数据表格
           stripe:表示隔行变色
@@ -101,9 +93,69 @@
           <template slot-scope="obj">
             <el-button type="text" size="small" @click="delDialog=true,$refs.dataTable.clearSelection(),ids=[],ids.push(obj.row.id)">删除</el-button>
             <el-button @click="findById(obj.row.id), editDialog=true" type="text" size="small">编辑</el-button>
+            <el-button @click="drawer = true" type="text" size="small">
+              详情
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
+
+      <el-drawer
+          title="品牌详情"
+          :visible.sync="drawer"
+          :direction="direction"
+          :before-close="handleClose">
+
+        <el-table
+            :data="tableData"
+            stripe
+            border
+            @selection-change="selectionChangeListener"
+            style="width: 100%">
+
+        <el-table-column
+            prop="brandName"
+            label="品牌名称"
+            align="center"
+        />
+        <el-table-column
+            prop="brandSite"
+            label="品牌网站"
+            align="center"
+        />
+        <el-table-column
+            prop="brandDesc"
+            label="品牌描述"
+            align="center"
+        />
+        <el-table-column
+            prop="brandLogo"
+            label="品牌logo"
+            align="center"
+        />
+        <el-table-column
+            prop="addTime"
+            label="添加时间"
+            align="center"
+        />
+        <el-table-column
+            prop="creatorId"
+            label="添加人id"
+            align="center"
+        />
+
+        <el-table-column
+            prop="updateTime"
+            label="修改时间"
+            align="center"
+        />
+        <el-table-column
+            prop="updateId"
+            label="修改人id"
+            align="center"
+        />
+        </el-table>
+      </el-drawer>
 
     </div>
     <!--    分页
@@ -161,7 +213,7 @@
         :visible.sync="delDialog"
         refs="dataTable"
         width="30%">
-      <span>确定要删除{{ids}}吗？？？？？？？？？？？？？？？？？？？？？？？？？！！！！！！！！！！！</span>
+      <span>确定要删除{{ids}}吗？？！！</span>
       <span slot="footer" class="dialog-footer">
         <el-button @click="delDialog = false" size="mini">取 消</el-button>
         <el-button type="primary" @click="delDialog = false,deleteByIds()" size="mini">确 定</el-button>
